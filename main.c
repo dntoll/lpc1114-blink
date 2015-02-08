@@ -43,6 +43,8 @@
 
 #include "hdr/hdr_syscon.h"
 
+#include "arduinoStyle.h"
+
 /*
 +=============================================================================+
 | module variables
@@ -59,6 +61,18 @@ static void flash_access_time(uint32_t frequency);
 static uint32_t pll_start(uint32_t crystal, uint32_t frequency);
 static void system_init(void);
 
+
+void setup() {
+	pinMode(GPIO1_8, OUTPUT);
+}
+
+void loop() {
+	delay(1000);
+	digitalWrite(GPIO1_8, HIGH);
+	delay(200);
+	digitalWrite(GPIO1_8, LOW);
+}
+
 /*
 +=============================================================================+
 | global functions
@@ -73,19 +87,15 @@ static void system_init(void);
 
 int main(void)
 {
-	volatile uint32_t count, count_max = 1000000;	// with core frequency ~50MHz this gives ~1.5Hz blinking frequency
-
 	pll_start(CRYSTAL, FREQUENCY);			// start the PLL
 	system_init();							// initialize other necessary elements
+	setup();
 
-	LED_GPIO->DIR |= LED;					// set the direction of the LED pin to output
+	
 
 	while (1)
 	{
-		for (count = 0; count < count_max; count++);	// delay
-		LED_gma = LED;						// instead of LED_GPIO->DATA |= LED;
-		for (count = 0; count < count_max; count++);	// delay
-		LED_gma = 0;						// instead of LED_GPIO->DATA &= ~LED;
+		loop();
 	}
 }
 
