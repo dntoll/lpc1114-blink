@@ -62,20 +62,32 @@ static uint32_t pll_start(uint32_t crystal, uint32_t frequency);
 static void system_init(void);
 
 
+unsigned int led = GPIO1_5;
+
 void setup() {
 	pinMode(GPIO1_8, INPUT);
-	pinMode(GPIO1_9, OUTPUT);
-	digitalWrite(GPIO1_9, LOW);
+	pinMode(led, OUTPUT);
+	digitalWrite(led, LOW);
+}
+
+void blink() {
+	digitalWrite(led, HIGH);
+	delay(1000);
+	digitalWrite(led, LOW);
+	delay(1000);
 }
 
 void loop() {
 
-	if (digitalRead(GPIO1_8) == 0) {
-		digitalWrite(GPIO1_9, LOW);
+	if (digitalRead(GPIO1_8)) {
+		digitalWrite(led, HIGH);
 	} else {
-		digitalWrite(GPIO1_9, HIGH);
+		digitalWrite(led, LOW);
 	}
-	delay(20);
+	delay(1000);
+	digitalWrite(led, LOW);
+	delay(1000);
+	
 	
 }
 

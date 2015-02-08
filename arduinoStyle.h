@@ -1,12 +1,12 @@
 #ifndef ARDUINO_STYLE
 #define ARDUINO_STYLE
 
-enum PIN_MODE {
+typedef enum PIN_MODE {
 	INPUT = 0,
 	OUTPUT
 };
 
-enum PIN {
+typedef enum PIN {
 	GPIO0_0 = 0,
 	GPIO0_1,
 	GPIO0_2,
@@ -29,7 +29,7 @@ enum PIN {
 	GPIO1_9
 };
 
-enum DIGITAL_STATE {
+typedef enum DIGITAL_STATE {
 	LOW = 0,
 	HIGH = 1
 };
@@ -118,7 +118,7 @@ unsigned int digitalRead(unsigned int pin) {
 	unsigned int portPin = getPin(pin);
 	
 	
-	return port->DATA & portPin > 0;
+	return (port->DATA & portPin);
 }
 
 void delay(unsigned int timeMilliseconds) {
