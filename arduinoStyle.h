@@ -95,6 +95,10 @@ void pinMode(unsigned int pin, unsigned int mode) {
 
 	if (mode == OUTPUT) {
 		port->DIR |= portPin;
+	} 
+	//This is just a guess that the port is input by default, other modes?
+	else if (mode == INPUT) {
+		port->DIR &= ~portPin;
 	}
 }
 
@@ -107,6 +111,14 @@ void digitalWrite(unsigned int pin, unsigned int value) {
 	} else {
 		port->DATA &= ~portPin;
 	}
+}
+
+unsigned int digitalRead(unsigned int pin) {
+	LPC_GPIO_TypeDef   * port = getPort(pin);
+	unsigned int portPin = getPin(pin);
+	
+	
+	return port->DATA & portPin > 0;
 }
 
 void delay(unsigned int timeMilliseconds) {

@@ -63,14 +63,20 @@ static void system_init(void);
 
 
 void setup() {
+	pinMode(GPIO1_8, INPUT);
 	pinMode(GPIO1_9, OUTPUT);
+	digitalWrite(GPIO1_9, LOW);
 }
 
 void loop() {
-	delay(1000);
-	digitalWrite(GPIO1_9, HIGH);
-	delay(200);
-	digitalWrite(GPIO1_9, LOW);
+
+	if (digitalRead(GPIO1_8) == 0) {
+		digitalWrite(GPIO1_9, LOW);
+	} else {
+		digitalWrite(GPIO1_9, HIGH);
+	}
+	delay(20);
+	
 }
 
 /*
