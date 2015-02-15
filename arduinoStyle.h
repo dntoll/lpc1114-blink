@@ -1,12 +1,12 @@
 #ifndef ARDUINO_STYLE
 #define ARDUINO_STYLE
 
-typedef enum PIN_MODE {
+enum PIN_MODE {
 	INPUT = 0,
 	OUTPUT
 };
 
-typedef enum PIN {
+enum PIN {
 	GPIO0_0 = 0,
 	GPIO0_1,
 	GPIO0_2,
@@ -29,12 +29,12 @@ typedef enum PIN {
 	GPIO1_9
 };
 
-typedef enum DIGITAL_STATE {
+enum DIGITAL_STATE {
 	LOW = 0,
 	HIGH = 1
 };
 
-LPC_GPIO_TypeDef* getPort(unsigned int pin) {
+LPC_GPIO_TypeDef* getPort(enum PIN pin) {
 	switch (pin) {
 		case GPIO0_0 :
 		case GPIO0_1 :
@@ -61,7 +61,7 @@ LPC_GPIO_TypeDef* getPort(unsigned int pin) {
 	return 0; //how to handle errors?
 }
 
-unsigned int getPin(unsigned int pin) {
+unsigned int getPin(enum PIN pin) {
 	switch (pin) {
 		case GPIO0_0 : return 1 << 0;
 		case GPIO0_1 : return 1 << 1;
@@ -89,7 +89,7 @@ unsigned int getPin(unsigned int pin) {
 }
 
 
-void pinMode(unsigned int pin, unsigned int mode) {
+void pinMode(enum PIN pin, enum PIN_MODE mode) {
 	LPC_GPIO_TypeDef   * port = getPort(pin);
 	unsigned int portPin = getPin(pin);
 
@@ -102,7 +102,7 @@ void pinMode(unsigned int pin, unsigned int mode) {
 	}
 }
 
-void digitalWrite(unsigned int pin, unsigned int value) {
+void digitalWrite(enum PIN pin, enum DIGITAL_STATE value) {
 	LPC_GPIO_TypeDef   * port = getPort(pin);
 	unsigned int portPin = getPin(pin);
 	
@@ -113,9 +113,9 @@ void digitalWrite(unsigned int pin, unsigned int value) {
 	}
 }
 
-unsigned int digitalRead(unsigned int pin) {
+enum DIGITAL_STATE digitalRead(enum PIN pin) {
 	LPC_GPIO_TypeDef   * port = getPort(pin);
-	unsigned int portPin = getPin(pin);
+	enum PIN portPin = getPin(pin);
 	
 	
 	return (port->DATA & portPin);

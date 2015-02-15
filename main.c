@@ -62,7 +62,7 @@ static uint32_t pll_start(uint32_t crystal, uint32_t frequency);
 static void system_init(void);
 
 
-unsigned int led = GPIO1_5;
+enum PIN led = GPIO1_5;
 
 void setup() {
 	pinMode(GPIO1_8, INPUT);
