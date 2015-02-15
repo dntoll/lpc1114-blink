@@ -102,6 +102,10 @@ void pinMode(enum PIN pin, enum PIN_MODE mode) {
 	}
 }
 
+int analogRead(enum PIN pin) {
+	return 0;
+}
+
 void digitalWrite(enum PIN pin, enum DIGITAL_STATE value) {
 	LPC_GPIO_TypeDef   * port = getPort(pin);
 	unsigned int portPin = getPin(pin);
@@ -113,6 +117,13 @@ void digitalWrite(enum PIN pin, enum DIGITAL_STATE value) {
 	}
 }
 
+void delay(unsigned int timeMilliseconds) {
+	volatile uint32_t count, count_max = 2000 * timeMilliseconds ;
+
+	for (count = 0; count < count_max; count++);	// delay
+
+}
+
 enum DIGITAL_STATE digitalRead(enum PIN pin) {
 	LPC_GPIO_TypeDef   * port = getPort(pin);
 	enum PIN portPin = getPin(pin);
@@ -121,11 +132,6 @@ enum DIGITAL_STATE digitalRead(enum PIN pin) {
 	return (port->DATA & portPin);
 }
 
-void delay(unsigned int timeMilliseconds) {
-	volatile uint32_t count, count_max = 2000 * timeMilliseconds ;
 
-	for (count = 0; count < count_max; count++);	// delay
-
-}
 
 #endif

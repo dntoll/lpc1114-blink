@@ -63,31 +63,34 @@ static void system_init(void);
 
 
 enum PIN led = GPIO1_5;
+enum PIN ain = GPIO1_4;
 
-void setup() {
+void setup(void) {
 	pinMode(GPIO1_8, INPUT);
 	pinMode(led, OUTPUT);
 	digitalWrite(led, LOW);
+	blink(100);
+	blink(100);
+	blink(100);
 }
 
-void blink() {
+void blink(unsigned int delayms) {
 	digitalWrite(led, HIGH);
-	delay(1000);
+	delay(delayms);
 	digitalWrite(led, LOW);
-	delay(1000);
+	delay(delayms);
 }
 
-void loop() {
+void loop(void) {
 
 	if (digitalRead(GPIO1_8)) {
-		digitalWrite(led, HIGH);
+		blink(100);
 	} else {
-		digitalWrite(led, LOW);
+		blink(1000);
 	}
-	delay(1000);
 	digitalWrite(led, LOW);
-	delay(1000);
-	
+
+	analogRead(ain);
 	
 }
 
